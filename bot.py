@@ -44,6 +44,13 @@ def API_response_to_embed(data):
 
     marriage = f"Married to {data['married']['spouse_name']} for {data['married']['duration']} days\n[View Spouse](https://www.torn.com/profiles.php?XID={data['married']['spouse_id']})" if data['married']['spouse_name'] != "None" else "Single"
 
+    profile_link = f"[Profile](https://www.torn.com/profiles.php?XID={data['player_id']})"
+    attack_link = f"[Attack](https://www.torn.com/loader.php?sid=attack&user2ID={data['player_id']})"
+    bounty_link = f"[Bounty](https://www.torn.com/bounties.php?p=add&XID={data['player_id']})"
+    bazaar_link = f"[Bazaar](https://www.torn.com/bazaar.php?userId={data['player_id']})"
+    display_link = f"[Display Case](https://www.torn.com/displaycase.php#display/{data['player_id']})"
+    trade_link = f"[Start Trade](https://www.torn.com/trade.php#step=start&userID={data['player_id']})"
+
     embedded = discord.Embed(
         color = color,
         title = f"{data['name']} [{data['player_id']}] {status_icon} {gender} {donator}",
@@ -69,7 +76,10 @@ Last Action: {data['last_action']['relative']} - {data['last_action']['status']}
 Networth: {networth}\n\
 Friends: {data['friends']}\n\
 Enemies: {data['enemies']}"
-                )
+    ).add_field(
+        name = "🔗 Links",
+        value = f"{profile_link} | {attack_link} | {bounty_link} | {bazaar_link} | {display_link} | {trade_link}"
+    )
     
     return embedded
 
