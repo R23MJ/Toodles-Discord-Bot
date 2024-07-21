@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 
+import requests
 import cache
 import locale
 import db
@@ -12,8 +13,21 @@ intents.message_content = True
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 TOKEN = 'MTI2NDIzNDE0MjY4NjUxMTM1OQ.GWsGnq.Hc9B7IaDe422AOI9qm7Y-8slUPubfsymSR8mAU'
-TORN_URI = 'https://api.torn.com/user' 
-ENDPOINT = '?selections=personalstats,profile&key='
+TORN_URI = 'https://api.torn.com/user'
+YATA_URI = 'https://yata.yt/api/v1/bs'
+TORN_ENDPOINT = '?selections=personalstats,profile&key='
+YATA_ENDPOINT = '?key='
+
+# Add battle estimates from YATA
+def add_bs_estimate(embedded: discord.Embed, yata_json, id):
+    embedded.insert_field_at(0,
+        name = "(ง⩺.⩹)ง Battle Stats",
+        value = f'''{yata_json[id]["total"]:,} estimated total
+{yata_json[id]["score"]:,} score
+{yata_json[id]["type"]} build
+{yata_json[id]["skewness"]}% skewed
+        '''
+    )
 
 # Format API response and return embeded message
 def API_response_to_embed(data):
@@ -125,10 +139,15 @@ async def on_message(message):
                 await message.channel.send("No Torn API Key set! Please use !setapikey <key>")
                 return
         
-            data = cache.fetch_api_data(f'{TORN_URI}/{id}{ENDPOINT}{key}', id, forced)
+            data = cache.fetch_api_data(f'{TORN_URI}/{id}{TORN_ENDPOINT}{key}', id, forced)
+            yata_response = requests.get(f'{YATA_URI}/{id}/{YATA_ENDPOINT}{key}')
 
             if data:
                 embedded = API_response_to_embed(data = data)
+
+                if yata_response:
+                    add_bs_estimate(embedded, yata_json = yata_response.json(), id=id)
+
                 await message.channel.send(embed = embedded)
             else:
                 await message.channel.send('Failed to fetch profile from Torn.')
