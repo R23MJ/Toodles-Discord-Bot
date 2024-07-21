@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-import requests
+import cache
 import locale
 import db
 
@@ -117,22 +117,19 @@ async def on_message(message):
             if not key:
                 await message.channel.send("No Torn API Key set! Please use !setapikey <key>")
                 return
+        
+            data = cache.fetch_api_data(f'{TORN_URI}/{id}{ENDPOINT}{key}', id)
 
-            response = requests.get(f'{TORN_URI}/{id}{ENDPOINT}{key}')
-
-            if response.status_code == 200:
-                data = response.json()
-
+            if data:
                 embedded = API_response_to_embed(data = data)
-
-                await message.channel.send(embed=embedded)
+                await message.channel.send(embed = embedded)
             else:
                 await message.channel.send('Failed to fetch profile from Torn.')
             
             await message.delete()
 
 # Command to set the API key
-@commands.command()
+@bot.command()
 async def setapikey(ctx, key: str):
     server_id = str(ctx.guild.id)
     db.set_api_key(server_id, key)
@@ -144,7 +141,5 @@ async def getapikey(ctx):
     server_id = str(ctx.guild.id)
     key = db.get_api_key(server_id)
     await ctx.send(f'{key}')
-
-bot.add_command(setapikey)
 
 bot.run(TOKEN)
