@@ -63,11 +63,11 @@ def delete_old_cached_responses(max_age_minutes = 10):
     conn.commit()
     conn.close()
 
-def fetch_api_data(endpoint, player_id):
+def fetch_api_data(endpoint, player_id, forced):
     # Check for a cached response
     cached = get_cached_response(player_id)
 
-    if cached:
+    if cached and not forced:
         return cached
     
     response = requests.get(endpoint)

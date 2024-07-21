@@ -111,6 +111,13 @@ async def on_message(message):
         if len(parts) > 1:
             id = parts[1]
 
+            forced = False
+            if len(parts) > 2:
+                flag = parts[2]
+
+                if flag == "--force":
+                    forced = True
+
             server_id = str(message.guild.id)
             key = db.get_api_key(server_id)
 
@@ -118,7 +125,7 @@ async def on_message(message):
                 await message.channel.send("No Torn API Key set! Please use !setapikey <key>")
                 return
         
-            data = cache.fetch_api_data(f'{TORN_URI}/{id}{ENDPOINT}{key}', id)
+            data = cache.fetch_api_data(f'{TORN_URI}/{id}{ENDPOINT}{key}', id, forced)
 
             if data:
                 embedded = API_response_to_embed(data = data)
