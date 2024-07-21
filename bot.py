@@ -46,7 +46,7 @@ def API_response_to_embed(data):
 
     embedded = discord.Embed(
         color = color,
-        title = f"{data['name']} [{id}] {status_icon} {gender} {donator}",
+        title = f"{data['name']} [{data['player_id']}] {status_icon} {gender} {donator}",
         description = f"Revivable: {revivable}\n\
 Role: {data['role']}\n\
 Level: {data['level']}, {data['rank']}\n\
@@ -70,6 +70,8 @@ Networth: {networth}\n\
 Friends: {data['friends']}\n\
 Enemies: {data['enemies']}"
                 )
+    
+    return embedded
 
 # Format numbers into currency
 def format_currency(amount):
