@@ -38,9 +38,9 @@ def API_response_to_embed(data):
 
     networth = format_currency(data['personalstats']['networth'])
 
-    employment = f"{data['job']['position']} at {data['job']['company_name']}\n[View Company](https://www.torn.com/joblist.php#/p=corpinfo&userID={id})" if data['job']['position'] != "None" else "Unemployed"
+    employment = f"{data['job']['position']} at {data['job']['company_name']}\n[View Company](https://www.torn.com/joblist.php#/p=corpinfo&userID={data['player_id']})" if data['job']['position'] != "None" else "Unemployed"
 
-    faction = f"{data['faction']['position']} at {data['faction']['faction_name']} for {data['faction']['days_in_faction']} days\n[View Faction](https://www.torn.com/factions.php?step=profile&userID={id})" if data['faction']['position'] != "None" else "Not in a faction"
+    faction = f"{data['faction']['position']} at {data['faction']['faction_name']} for {data['faction']['days_in_faction']} days\n[View Faction](https://www.torn.com/factions.php?step=profile&userID={data['player_id']})" if data['faction']['position'] != "None" else "Not in a faction"
 
     marriage = f"Married to {data['married']['spouse_name']} for {data['married']['duration']} days\n[View Spouse](https://www.torn.com/profiles.php?XID={data['married']['spouse_id']})" if data['married']['spouse_name'] != "None" else "Single"
 
@@ -128,11 +128,11 @@ async def on_message(message):
                 await message.channel.send(embed=embedded)
             else:
                 await message.channel.send('Failed to fetch profile from Torn.')
+            
             await message.delete()
 
-# Command to set the API keyBTq9fkKNdkF6BDYI
+# Command to set the API key
 @commands.command()
-@commands.has_permissions(administrator=True)
 async def setapikey(ctx, key: str):
     server_id = str(ctx.guild.id)
     db.set_api_key(server_id, key)
