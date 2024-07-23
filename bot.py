@@ -97,6 +97,14 @@ Enemies: {data['enemies']}"
     
     return embedded
 
+# helper function to check if a string is a number
+def is_integer(s: str):
+    try:
+        int(s)
+        return True
+    except ValueError:
+        return False
+
 # Format numbers into currency
 def format_currency(amount):
     locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
@@ -125,8 +133,11 @@ async def on_message(message):
     
     if bot.user.mentioned_in(message):
         parts = message.content.split()
-        if len(parts) > 1:
+        if len(parts) == 2:
             id = parts[1]
+
+            if (not is_integer(id)):
+                return
 
             forced = False
             if len(parts) > 2:
