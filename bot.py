@@ -15,7 +15,7 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 TOKEN = 'MTI2NDIzNDE0MjY4NjUxMTM1OQ.GWsGnq.Hc9B7IaDe422AOI9qm7Y-8slUPubfsymSR8mAU'
 TORN_URI = 'https://api.torn.com/user'
 YATA_URI = 'https://yata.yt/api/v1/bs'
-TORN_ENDPOINT = '?selections=personalstats,profile&key='
+TORN_ENDPOINT = '?selections=personalstats,profile&stat=networth&key='
 YATA_ENDPOINT = '?key='
 
 # Add battle estimates from YATA
@@ -118,6 +118,9 @@ async def on_message(message):
     await bot.process_commands(message)
 
     if message.author == bot.user:
+        return
+    
+    if '@everyone' in message.content:
         return
     
     if bot.user.mentioned_in(message):
