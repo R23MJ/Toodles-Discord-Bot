@@ -3,3 +3,4 @@ __pycache__/
 /penv/
 *.db
 /venv/
+/.venv/

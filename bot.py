@@ -5,6 +5,7 @@ import requests
 import cache
 import locale
 import db
+import re
 
 intents = discord.Intents.default();
 # intents.messages = True
@@ -97,6 +98,13 @@ Enemies: {data['enemies']}"
     
     return embedded
 
+def getTornId(display_name : str):
+    match = re.search(r'\[(\d+)\]', display_name)
+    if not match:
+        return None
+    
+    return match.group(1)
+
 # helper function to check if a string is a number
 def is_integer(s: str):
     try:
@@ -167,6 +175,27 @@ async def on_message(message):
                 await message.channel.send('Failed to fetch profile from Torn.')
             
             await message.delete()
+
+@bot.slash_command(name="banker", guild_ids=[1183384620440494120])
+async def banker_command(ctx, amount, offline_ok : bool = False):
+    banker_role_id = 1269676070928519332
+    role = ctx.guild.get_role(banker_role_id)
+
+    torn_id = getTornId(ctx.author.display_name)
+    if not isinstance(torn_id, str):
+        await ctx.respond(f"Could not find Torn ID in your display name.", ephemeral=True)
+        return
+
+    embed = discord.Embed(
+        title="Pay Request",
+        description=(
+            f"{role.mention} {ctx.author.display_name} has requested ${amount:,.0f} moneys!\n"
+            f"[Pay Them!](https://www.torn.com/factions.php?step=your#/tab=controls&giveMoneyTo={torn_id}&money={amount})\n"
+            f"Okay To Send If Online? -> {offline_ok}"
+        )
+    )
+
+    await ctx.respond(embed=embed)
 
 # Command to set the API key
 @bot.command()
