@@ -177,7 +177,7 @@ async def on_message(message):
             await message.delete()
 
 @bot.slash_command(name="banker", guild_ids=[1183384620440494120])
-async def banker_command(ctx, amount, offline_ok : bool = False):
+async def banker_command(ctx: discord.ApplicationContext, amount: int, offline_ok : bool = False):
     banker_role_id = 1269676070928519332
     role = ctx.guild.get_role(banker_role_id)
 
