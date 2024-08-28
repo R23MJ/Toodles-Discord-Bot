@@ -192,7 +192,8 @@ async def banker_command(ctx: discord.ApplicationContext, amount: int, offline_o
             f"{role.mention} {ctx.author.display_name} has requested ${amount:,.0f} moneys!\n"
             f"[Pay Them!](https://www.torn.com/factions.php?step=your#/tab=controls&giveMoneyTo={torn_id}&money={amount})\n"
             f"Okay To Send If Online? -> {offline_ok}"
-        )
+        ),
+        color=discord.Color.red()
     )
 
     await ctx.respond(embed=embed)
