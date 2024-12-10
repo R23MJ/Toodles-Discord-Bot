@@ -1,0 +1,27 @@
+{
+  "footer": {
+    "text": "",
+    "icon_url": ""
+  },
+  "image": {
+    "url": ""
+  },
+  "thumbnail": {
+    "url": ""
+  },
+  "author": {
+    "name": "Hosted by {host_name} - Jump #{jump_id}",
+    "url": "",
+    "icon_url": "{host_avatar}"
+  },
+  "fields": [
+    {
+      "name": "Instructions",
+      "value": "- Seller: Click 'Done' when you have 99k happy.\n- Jumpers: After you have jumped, and trained, click 'Done'."
+    }
+  ],
+  "color": 3066993,
+  "type": "rich",
+  "description": "Jump scheduled for <t:{jump_time}:F>.",
+  "title": "Jump Controls"
+}

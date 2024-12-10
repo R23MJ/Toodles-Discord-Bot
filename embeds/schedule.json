@@ -1,0 +1,28 @@
+{
+    "footer": {
+        "text": "",
+        "icon_url": ""
+    },
+    "image": {
+        "url": ""
+    },
+    "thumbnail": {
+        "url": ""
+    },
+    "author": {
+        "name": "{guild_name}",
+        "url": "",
+        "icon_url": "{guild_image}"
+    },
+    "fields": [
+        {
+            "name": "How it works",
+            "value": "1. Click the button below to schedule a jump.\n2. Wait for the jumpers to join.\n3. Click 'Done' when your happy is stacked!",
+            "inline": false
+        }
+    ],
+    "color": 3066993,
+    "type": "rich",
+    "description": "Use the button below to schedule a jump.",
+    "title": "Jump Scheduler"
+}

@@ -1,0 +1,22 @@
+{
+  "footer": {
+    "text": "",
+    "icon_url": ""
+  },
+  "image": {
+    "url": ""
+  },
+  "thumbnail": {
+    "url": ""
+  },
+  "author": {
+    "name": "Hosted by {host_name}",
+    "url": "",
+    "icon_url": "{host_avatar}"
+  },
+  "fields": [],
+  "color": 3066993,
+  "type": "rich",
+  "description": "Jump scheduled for <t:{jump_time}:F>.",
+  "title": "Jump #{jump_id}"
+}

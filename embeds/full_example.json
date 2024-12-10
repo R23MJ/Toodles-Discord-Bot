@@ -1,0 +1,43 @@
+{
+    "footer": {
+        "text": "Footer",
+        "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
+    },
+    "image": {
+        "url": "https://cdn.discordapp.com/embed/avatars/0.png"
+    },
+    "thumbnail": {
+        "url": "https://cdn.discordapp.com/embed/avatars/0.png"
+    },
+    "author": {
+        "name": "Author",
+        "url": "https://discord.com",
+        "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
+    },
+    "fields": [
+        {
+            "name": "Field 1",
+            "value": "value 1",
+            "inline": false
+        },
+        {
+            "name": "Inline Field 1",
+            "value": "value 1",
+            "inline": true
+        },
+        {
+            "name": "Inline Field 2",
+            "value": "value 2",
+            "inline": true
+        },
+        {
+            "name": "Inline Field 3",
+            "value": "value 3",
+            "inline": true
+        }
+    ],
+    "color": 3066993,
+    "type": "rich",
+    "description": "Description",
+    "title": "Title"
+}
