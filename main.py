@@ -82,6 +82,7 @@ async def on_guild_join(guild):
     await schedule_view.send_schedule_view(guild, jump_seller_hub)
 
 @bot.event
+@bot.listen(once=True)
 async def on_ready():
     '''Prints a message to the console when the bot is ready'''
     await bot.sync_commands(force=True)
@@ -109,13 +110,22 @@ async def on_ready():
             view.jump_message_id = message.id
             await message.edit(view=view)
 
+    print("Bot Initialized.")
+
+@bot.listen()
+async def on_ready():
     print("Bot ready.")
 
 @bot.event
-async def on_message_delete(message: discord.Message):
+async def on_raw_message_delete(payload: discord.RawMessageDeleteEvent):
     '''Handle message deletions'''
+    if payload.cached_message:
+        message = payload.cached_message
+    else:
+        channel = await bot.fetch_channel(payload.channel_id)
+        message = await channel.fetch_message(payload.message_id)
+
     if not message.embeds:
-        print("No embeds.")
         return
 
     embed = await load_embed_from_file("schedule", {
@@ -130,7 +140,7 @@ async def on_message_delete(message: discord.Message):
     embed = message.embeds[0]
     if embed.title.find("Jump") == -1:
         return
-    
+
     await utils.delete_jump(message.guild, int(embed.title.split("#")[1]))
 
 bot.add_application_command(config_commands)
