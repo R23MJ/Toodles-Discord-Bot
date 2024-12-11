@@ -114,6 +114,7 @@ async def on_ready():
 
 @bot.listen()
 async def on_ready():
+    '''Second on_ready event listener. Just prints a ready message, no need to reinitialize everything'''
     print("Bot ready.")
 
 @bot.event
