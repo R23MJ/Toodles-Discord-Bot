@@ -74,6 +74,8 @@ async def on_disconnect():
 @bot.event
 async def on_guild_join(guild):
     '''Handles guild joins'''
+    print(f"Joined guild {guild.name} ({guild.id})")
+
     jump_seller_role = await create_jump_seller_role(guild)
     category = await create_jump_category(guild)
     jump_seller_hub = await create_jump_seller_hub(guild, category, jump_seller_role)
