@@ -126,7 +126,7 @@ async def on_raw_message_delete(payload: discord.RawMessageDeleteEvent):
         message = payload.cached_message
     else:
         channel = await bot.fetch_channel(payload.channel_id)
-        message = await channel.fetch_message(payload.message_id)
+        message = await channel.get_message(payload.message_id)
 
     if not message.embeds:
         return
