@@ -20,8 +20,14 @@ class ScheduleJumpModal(discord.ui.Modal):
         '''Callback for the modal.'''
         await interaction.response.defer(ephemeral=True)
 
-        self.jump_time = int(self.children[0].value[3:-2])
-          
+        if not self.children[0].value:
+            return await interaction.followup.send("You must provide a jump time.", ephemeral=True)
+        
+        if not self.children[0].value.startswith("<t:") or not self.children[0].value.endswith(">"):
+            return await interaction.followup.send("Invalid timestamp format.", ephemeral=True)
+        
+        self.jump_time = int(self.children[0].value[3:-3])
+
         if not self.jump_time:
             return await interaction.followup.send("You must provide a jump time.", ephemeral=True)    
 
