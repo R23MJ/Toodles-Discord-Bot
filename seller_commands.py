@@ -14,10 +14,11 @@ seller_commands = SlashCommandGroup(name="jump", description="Base command for a
 @permissions(required_roles=["Jump Seller"])
 async def send_controls_command(ctx: discord.ApplicationContext):
     '''Send jump controls.'''
-    await ctx.defer();
+    await ctx.defer()
     jump_id = int(ctx.channel.name.split("-")[1])
 
-    jump_time = (await db.get_jump(jump_id))["jump_time"]
+    jump = await db.get_jump(jump_id)
+    jump_time = jump["jump_time"]
 
     controls_embed = await utils.load_embed_from_file(
         "jump_controls",
