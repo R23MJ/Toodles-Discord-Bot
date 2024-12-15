@@ -14,14 +14,14 @@ class ScheduleJumpModal(discord.ui.Modal):
     def __init__(self):
         super().__init__(title="Schedule a Jump")
         self.jump_time = None
-        self.add_item(discord.ui.InputText(label="Jump Time", placeholder="Enter Timestamp Here.", max_length=12))
+        self.add_item(discord.ui.InputText(label="Jump Time", placeholder="Enter Timestamp Here."))
 
     async def callback(self, interaction: discord.Interaction):
         '''Callback for the modal.'''
         await interaction.response.defer(ephemeral=True)
 
-        self.jump_time = utils.convert_to_timestamp(self.children[0].value)
-
+        self.jump_time = int(self.children[0].value[3:-2])
+          
         if not self.jump_time:
             return await interaction.followup.send("You must provide a jump time.", ephemeral=True)    
 
