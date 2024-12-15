@@ -11,7 +11,7 @@ from views import controls_view
 seller_commands = SlashCommandGroup(name="jump", description="Base command for all jump commands.")
 
 @seller_commands.command(name="send_controls", description="Send jump controls.")
-@permissions("Jump Seller")
+@permissions(required_roles=["Jump Seller"])
 async def send_controls_command(ctx: discord.ApplicationContext):
     '''Send jump controls.'''
     await ctx.defer();
