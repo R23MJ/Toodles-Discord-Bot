@@ -6,11 +6,11 @@ from discord.ext import commands
 import db
 import env
 
-import seller_commands
 from utils import load_embed_from_file
 import utils
 from views import schedule_view, join_view, controls_view
 from config_commands import config_commands
+from seller_commands import seller_commands
 
 intents = discord.Intents.default()
 intents.message_content = True
