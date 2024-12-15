@@ -27,7 +27,7 @@ class JumpControlsButtonView(discord.ui.View):
         if not embed:
             return await interaction.followup.send("Message is ill-formed.", ephemeral=True)
 
-        if not self.started: 
+        if not self.started:
             if embed.author.name.find(interaction.user.display_name) == -1:
                 return await interaction.followup.send("Wait for the host to start the jump.", ephemeral=True)
 
@@ -79,6 +79,24 @@ class JumpControlsButtonView(discord.ui.View):
         self.jumpers = [jumper.display_name for jumper in jumpers]
 
         await interaction.response.send_modal(modal=update_modal.UpdateModal(jump_id, jump_time, self.jumpers))
+
+    @discord.ui.button(label="Skip", style=discord.ButtonStyle.danger, custom_id="skip")
+    async def skip_callback(self, button, interaction: discord.Interaction):
+        '''Handle button clicks'''
+        await interaction.response.defer(ephemeral=True)
+
+        message = interaction.message
+        embed = message.embeds[0]
+
+        if embed.author.name.find(interaction.user.display_name) == -1:
+            return await interaction.followup.send("You can't skip another jumper.", ephemeral=True)
+
+        if not self.jumpers:
+            return await interaction.followup.send("No jumpers found.", ephemeral=True)
+        
+        jumper = self.jumpers.pop(0)
+
+        await interaction.followup.send(f"{jumper} has been skipped. {interaction.guild.get_member_named(self.jumpers[0]).mention} it's your turn: GO!", ephemeral=True)
 
     @discord.ui.button(label="Cancel", style=discord.ButtonStyle.danger, custom_id="cancel")
     async def cancel_callback(self, button, interaction: discord.Interaction):

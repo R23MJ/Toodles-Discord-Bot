@@ -2,6 +2,9 @@
 
 import discord
 import db
+import utils
+
+TORN_PROFILE_URL = "https://www.torn.com/profiles.php?XID="
 
 class UpdateModal(discord.ui.Modal):
     '''Modal for updating a jump.'''
@@ -42,6 +45,8 @@ class UpdateModal(discord.ui.Modal):
         embed.description = f"Jump scheduled for <t:{jump_time}:F>"
         jumpers_field = next((field for field in embed.fields if field.name == "Jumper Order"), None)
 
+        jumpers = [f"[{jumper}]({TORN_PROFILE_URL}{utils.get_torn_id(jumper)})" for jumper in jumpers]
+        
         if jumpers_field:
             jumpers_field.value = "\n".join(jumpers)
         else:
