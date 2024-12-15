@@ -6,6 +6,7 @@ from discord.ext import commands
 import db
 import env
 
+import seller_commands
 from utils import load_embed_from_file
 import utils
 from views import schedule_view, join_view, controls_view
@@ -146,5 +147,6 @@ async def on_raw_message_delete(payload: discord.RawMessageDeleteEvent):
 
     await utils.delete_jump(message.guild, int(embed.title.split("#")[1]))
 
+bot.add_application_command(seller_commands)
 bot.add_application_command(config_commands)
 bot.run(TOKEN)
