@@ -2,6 +2,7 @@
 
 import json
 import re
+import time
 import discord
 
 import db
@@ -79,3 +80,10 @@ async def delete_jump(guild, jump_id : int):
 
     if channel:
         await channel.delete()
+
+async def convert_to_timestamp(date_time : str):
+    '''Converts a date time string to a timestamp'''
+    try:
+        return int(time.mktime(time.strptime(date_time, "%A, %B %d, %Y %I:%M %p")))
+    except ValueError:
+        return None
