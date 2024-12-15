@@ -121,14 +121,8 @@ async def on_ready():
     print("Bot ready.")
 
 @bot.event
-async def on_raw_message_delete(payload: discord.RawMessageDeleteEvent):
+async def on_message_delete(message: discord.Message):
     '''Handle message deletions'''
-    if payload.cached_message:
-        message = payload.cached_message
-    else:
-        channel = await bot.fetch_channel(payload.channel_id)
-        message = channel.get_partial_message(payload.message_id)
-
     if not message.embeds:
         return
 
