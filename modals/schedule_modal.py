@@ -45,8 +45,9 @@ class ScheduleJumpModal(discord.ui.Modal):
 
         message_id = await jump_embed.send_jump_to_schedule(interaction.guild, embed)
 
-        if "error" in message_id:
-            return interaction.followup.send(message_id["error"], ephemeral=True)
+        if isinstance(message_id, dict):
+            if "error" in message_id:
+                return interaction.followup.send(message_id["error"], ephemeral=True)
 
         await db.update_jump_message_id(jump_id, message_id)
         await interaction.followup.send("Jump scheduled.", ephemeral=True)
