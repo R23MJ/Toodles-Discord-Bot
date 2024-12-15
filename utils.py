@@ -49,7 +49,7 @@ async def get_jump_seller_hub(guild : discord.Guild):
 async def delete_jump(guild, jump_id : int):
     '''Utility function to delete a jump'''
     jump = await db.get_jump(jump_id)
-    if not jump:
+    if jump is not None:
         return {"error": "Jump not found."}
 
     join_message_id = jump["message_id"]
@@ -60,7 +60,7 @@ async def delete_jump(guild, jump_id : int):
     except discord.errors.NotFound:
         join_message = None
 
-    if join_message:
+    if join_message is not None:
         await join_message.delete()
 
     await db.delete_jump(jump_id)
@@ -70,7 +70,7 @@ async def delete_jump(guild, jump_id : int):
     except discord.errors.NotFound:
         role = None
 
-    if role:
+    if role is not None:
         await role.delete()
 
     try:
@@ -78,7 +78,7 @@ async def delete_jump(guild, jump_id : int):
     except discord.errors.NotFound:
         channel = None
 
-    if channel:
+    if channel is not None:
         await channel.delete()
 
 async def convert_to_timestamp(date_time : str):
