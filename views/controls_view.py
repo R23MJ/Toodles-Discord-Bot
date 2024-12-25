@@ -35,7 +35,7 @@ class JumpControlsButtonView(discord.ui.View):
             if (timestamp - time.time()) > 0:
                 return await interaction.followup.send("You cannot start the jump yet.", ephemeral=True)
 
-            self.jump_id = int(interaction.channel.name.split("-")[1])
+            self.jump_id = int(interaction.message.embeds[0].author.name.split("#")[1])
 
             jumpers = await db.get_jumpers(self.jump_id)
             self.jumpers = [jumper.display_name for jumper in jumpers]
@@ -71,7 +71,7 @@ class JumpControlsButtonView(discord.ui.View):
         if embed.author.name.find(interaction.user.display_name) == -1:
             return await interaction.response.send_message("You can only update your own jumps.", ephemeral=True)
 
-        jump_id = int(interaction.channel.name.split("-")[1])
+        jump_id = int(interaction.message.embeds[0].author.name.split("#")[1])
         jump_time = int(embed.description.split(":")[1])
         jumpers = await db.get_jumpers(jump_id)
 
@@ -114,6 +114,8 @@ class JumpControlsButtonView(discord.ui.View):
             return await interaction.followup.send("You can only cancel your own jumps.", ephemeral=True)
 
         if not self.jump_id:
-            self.jump_id = int(interaction.channel.name.split("-")[1])
-
+            self.jump_id = int(interaction.message.embeds[0].author.name.split("#")[1])
+            
         await utils.delete_jump(interaction.guild, self.jump_id)
+        await interaction.followup.send("Jump canceled.", ephemeral=True)
+        await interaction.message.delete()
