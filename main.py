@@ -102,7 +102,7 @@ async def on_ready():
         await schedule_view.send_schedule_view(guild, jump_seller_hub)
 
         async for message in jump_schedule.history():
-            if message.embeds.count() == 0:
+            if len(message.embeds) == 0:
                 continue
 
             embed = message.embeds[0]
@@ -123,7 +123,7 @@ async def on_ready():
 @bot.event
 async def on_message_delete(message: discord.Message):
     '''Handle message deletions'''
-    if message.embeds.count() == 0:
+    if len(message.embeds) == 0:
         return
 
     embed = await load_embed_from_file("schedule", {
