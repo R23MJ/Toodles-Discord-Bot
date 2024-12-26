@@ -56,7 +56,8 @@ class ScheduleJumpModal(discord.ui.Modal):
         await interaction.followup.send("Jump scheduled.", ephemeral=True)
 
         guild = interaction.guild
-        channel = discord.utils.get(guild.channels, name="jumps")
+        await guild.create_role(name=f"Jump #{jump_id}")
+        channel = discord.utils.get(guild.channels, name="jump")
 
         controls_embed = await utils.load_embed_from_file(
             "jump_controls",

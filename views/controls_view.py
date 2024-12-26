@@ -98,7 +98,7 @@ class JumpControlsButtonView(discord.ui.View):
 
         await interaction.followup.send(f"{jumper} has been skipped. {interaction.guild.get_member_named(self.jumpers[0]).mention} it's your turn: GO!", ephemeral=True)
 
-    @discord.ui.button(label="Cancel", style=discord.ButtonStyle.danger, custom_id="cancel")
+    @discord.ui.button(label="End", style=discord.ButtonStyle.danger, custom_id="cancel")
     async def cancel_callback(self, button, interaction: discord.Interaction):
         '''Handle button clicks'''
         await interaction.response.defer(ephemeral=True)
