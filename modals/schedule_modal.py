@@ -47,7 +47,7 @@ class ScheduleJumpModal(discord.ui.Modal):
                 "host_name": interaction.user.display_name,
                 "host_avatar": interaction.user.avatar.url,
                 "host_url": f"https://www.torn.com/profiles.php?XID={host_id}",
-                "torn_time": datetime.datetime.fromtimestamp(self.jump_time, tz=datetime.timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
+                "torn_time": datetime.datetime.fromtimestamp(self.jump_time, tz=datetime.timezone.utc).strftime('%A, %B %d, %Y at %H:%M')
             }
         )
 
