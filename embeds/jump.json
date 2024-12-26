@@ -17,6 +17,6 @@
   "fields": [],
   "color": 3066993,
   "type": "rich",
-  "description": "Jump scheduled for <t:{jump_time}:F>.",
+  "description": "Jump scheduled for <t:{jump_time}:F>. That is {torn_time} TCT.\nPlease send 2 dvds or 8 xanax to [{host_name}]({host_url}) to secure your spot.",
   "title": "Jump #{jump_id}"
 }

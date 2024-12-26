@@ -1,5 +1,6 @@
 '''Modal for scheduling a jump.'''
 
+import datetime
 import time
 import discord
 
@@ -36,13 +37,17 @@ class ScheduleJumpModal(discord.ui.Modal):
 
         jump_id = await db.add_jump(self.jump_time)
 
+        host_id = utils.get_torn_id(interaction.user.display_name)
+
         embed = await utils.load_embed_from_file(
             "jump",
             {
                 "jump_id": str(jump_id),
                 "jump_time": str(self.jump_time),
                 "host_name": interaction.user.display_name,
-                "host_avatar": interaction.user.avatar.url
+                "host_avatar": interaction.user.avatar.url,
+                "host_url": f"https://www.torn.com/profiles.php?XID={host_id}",
+                "torn_time": datetime.datetime.fromtimestamp(self.jump_time, tz=datetime.timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
             }
         )
 
@@ -56,7 +61,8 @@ class ScheduleJumpModal(discord.ui.Modal):
         await interaction.followup.send("Jump scheduled.", ephemeral=True)
 
         guild = interaction.guild
-        channel = discord.utils.get(guild.channels, name="jumps")
+        await guild.create_role(name=f"Jump #{jump_id}")
+        channel = discord.utils.get(guild.channels, name="jump")
 
         controls_embed = await utils.load_embed_from_file(
             "jump_controls",

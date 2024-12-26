@@ -65,6 +65,14 @@ async def delete_jump(guild, jump_id : int):
 
     await db.delete_jump(jump_id)
 
+    try:
+        role = discord.utils.get(guild.roles, name=f"Jump #{jump_id}")
+    except discord.errors.NotFound:
+        role = None
+
+    if role is not None:
+        await role.delete()
+
 async def convert_to_timestamp(date_time : str):
     '''Converts a date time string to a timestamp'''
     try:

@@ -56,7 +56,7 @@ class JoinJumpButtonView(discord.ui.View):
         jump_id = match.group(1)
 
         guild = interaction.guild
-        role = discord.utils.get(guild.roles, name="Jumper")
+        role = discord.utils.get(guild.roles, name=f"Jump #{jump_id}")
         if not role:
             return await interaction.followup.send("Jump role not found.", ephemeral=True)
 
@@ -95,7 +95,7 @@ class JoinJumpButtonView(discord.ui.View):
         jump_id = match.group(1)
 
         guild = interaction.guild
-        role = discord.utils.get(guild.roles, name="Jumper")
+        role = discord.utils.get(guild.roles, name=f"Jump #{jump_id}")
         if not role:
             return await interaction.followup.send("Jump role not found.", ephemeral=True)
 
