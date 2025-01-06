@@ -105,6 +105,9 @@ async def on_ready():
             if len(message.embeds) < 1:
                 continue
 
+            if message.author != bot.user:
+                continue
+
             embed = message.embeds[0]
 
             if embed.title is not None and embed.title.find("Jump") == -1:
