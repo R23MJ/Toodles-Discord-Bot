@@ -49,6 +49,9 @@ class JoinJumpButtonView(discord.ui.View):
         if interaction.user.display_name in jumpers:
             return await interaction.followup.send("You are already in the jump.", ephemeral=True)
 
+        if len(jumpers) >= 6:
+            return await interaction.followup.send("Jump is full! Please join another jump.", ephemeral=True)
+
         match = re.search(r"#(\d+)", embed.title)
         if not match:
             return await interaction.followup.send("Jump id not found.", ephemeral=True)
