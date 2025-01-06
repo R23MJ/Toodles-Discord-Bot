@@ -51,7 +51,7 @@ async def create_jump_seller_hub(guild, category, jump_seller_role):
 
     return await guild.create_text_channel("jump-seller-hub", category=category, overwrites=overwrites)
 
-async def create_jump_schedule_channel(guild, category):
+async def create_jump_schedule_channel(guild: discord.Guild, category: discord.CategoryChannel):
     '''Creates the jump schedule channel'''
     for channel in guild.channels:
         if channel.name == "jump-schedule":
@@ -97,15 +97,16 @@ async def on_ready():
         jump_seller_role = await create_jump_seller_role(guild)
         category = await create_jump_category(guild)
         jump_seller_hub = await create_jump_seller_hub(guild, category, jump_seller_role)
-        jump_schedule = await create_jump_schedule_channel(guild, category)
+        jump_schedule: discord.TextChannel = await create_jump_schedule_channel(guild, category)
 
         await schedule_view.send_schedule_view(guild, jump_seller_hub)
 
         async for message in jump_schedule.history():
-            if len(message.embeds) == 0:
+            if len(message.embeds) < 1:
                 continue
 
             embed = message.embeds[0]
+
             if embed.title.find("Jump") == -1:
                 continue
 
