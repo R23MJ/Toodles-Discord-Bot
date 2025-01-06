@@ -107,7 +107,7 @@ async def on_ready():
 
             embed = message.embeds[0]
 
-            if embed.title != None and embed.title.find("Jump") == -1:
+            if embed.title is not None and embed.title.find("Jump") == -1:
                 continue
 
             view = join_view.JoinJumpButtonView()
