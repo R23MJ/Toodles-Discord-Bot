@@ -5,7 +5,6 @@ import time
 import discord
 import db
 
-from modals import update_modal
 from utils import get_torn_id
 
 # function to abstract out common checks
@@ -81,7 +80,7 @@ class JoinJumpButtonView(discord.ui.View):
             return await interaction.followup.send("Message constructing. Try again in a few minutes.", ephemeral=True)
 
         embed, jumpers_field = await check_jump(interaction)
-        
+
         timestamp = int(embed.description.split(":")[1])
         if (timestamp - time.time()) < 0:
             print(timestamp, time.time())
