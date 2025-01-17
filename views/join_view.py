@@ -7,6 +7,8 @@ import db
 
 from utils import get_torn_id
 
+MAX_JUMPERS = 8
+
 # function to abstract out common checks
 async def check_jump(interaction: discord.Interaction):
     '''Check if jump is valid'''
@@ -48,7 +50,7 @@ class JoinJumpButtonView(discord.ui.View):
         if interaction.user.display_name in jumpers:
             return await interaction.followup.send("You are already in the jump.", ephemeral=True)
 
-        if len(jumpers) >= 6:
+        if len(jumpers) >= MAX_JUMPERS:
             return await interaction.followup.send("Jump is full! Please join another jump.", ephemeral=True)
 
         match = re.search(r"#(\d+)", embed.title)
