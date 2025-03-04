@@ -2,7 +2,7 @@
 
 import discord
 
-from utils import load_embed_from_file
+from utils import load_embed_from_file, get_torn_id
 
 class RollCallButtonView(discord.ui.View):
     '''Button View for the roll call command'''
@@ -27,7 +27,13 @@ class RollCallButtonView(discord.ui.View):
         if interaction.user.display_name in names:
             return await interaction.followup.send("You've already readied up.", ephemeral=True)
 
-        names.append(interaction.user.display_name)
+        torn_id = get_torn_id(interaction.user.display_name)
+        torn_url = f"https://www.torn.com/profiles.php?XID={torn_id}"
+
+        if names[0] == "No one is ready yet.":
+            names[0] = f"[{interaction.user.name}]({torn_url})"
+        else:
+            names.append(f"[{interaction.user.name}]({torn_url})")
 
         await message.delete()
 
