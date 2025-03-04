@@ -107,6 +107,7 @@ class GoingButtonView(discord.ui.View):
             }
         )
 
+        await interaction.channel.send(embed=embed)
         return await interaction.followup.send("Oh no :(.", ephemeral=True)
 
 async def send_done_view(guild: discord.Guild, channel: discord.TextChannel, name: str):
