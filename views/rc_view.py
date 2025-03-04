@@ -63,7 +63,7 @@ async def send_rc_view(guild: discord.Guild, channel: discord.TextChannel):
         {
             "guild_name": guild.name,
             "guild_image": guild.icon.url,
-            "names": "No one is ready yet.",
+            "names": "I CAN'T HEAR YOU!",
         }
     )
 
