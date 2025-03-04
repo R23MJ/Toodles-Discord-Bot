@@ -41,7 +41,7 @@ class DoneButtonView(discord.ui.View):
         message = await interaction.channel.send(embed=embed, view=view)
         view.message_id = message.id
 
-        return await interaction.followup.send("You are now ready.", ephemeral=True)
+        return await interaction.followup.send("You are now going.", ephemeral=True)
     
 class GoingButtonView(discord.ui.View):
     '''Button View for the going command'''
@@ -61,7 +61,9 @@ class GoingButtonView(discord.ui.View):
         message = await interaction.channel.fetch_message(self.message_id)
         embed = message.embeds[0]
 
-        if interaction.user.display_name not in embed.description:
+        tokens = embed.description.split(" ")
+
+        if interaction.user.display_name not in tokens:
             return await interaction.followup.send("Wait your turn.", ephemeral=True)
 
         await message.delete()
@@ -80,7 +82,7 @@ class GoingButtonView(discord.ui.View):
         message = await interaction.channel.send(embed=embed, view=view)
         view.message_id = message.id
 
-        return await interaction.followup.send("You are now ready.", ephemeral=True)
+        return await interaction.followup.send("You are now done.", ephemeral=True)
 
 async def send_done_view(guild: discord.Guild, channel: discord.TextChannel, name: str):
     '''Send the done view to a channel'''
