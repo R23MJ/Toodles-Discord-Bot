@@ -1,0 +1,21 @@
+{
+  "footer": {
+    "text": "",
+    "icon_url": ""
+  },
+  "image": {
+    "url": ""
+  },
+  "thumbnail": {
+    "url": ""
+  },
+  "author": {
+    "name": "{guild_name}",
+    "url": "",
+    "icon_url": "{guild_image}"
+  },
+  "color": 3066993,
+  "type": "rich",
+  "description": "Jump is over :( {name} is dead. Everyone press F to pay respects.",
+  "title": "{name} Overdosed!"
+}

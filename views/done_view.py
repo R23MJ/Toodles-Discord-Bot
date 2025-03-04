@@ -81,6 +81,33 @@ class GoingButtonView(discord.ui.View):
         view.message_id = message.id
 
         return await interaction.followup.send("You are now done.", ephemeral=True)
+    
+    @discord.ui.button(label="Overdosed", style=discord.ButtonStyle.primary, custom_id="overdosed")
+    async def overdosed_callback(self, button, interaction: discord.Interaction):
+        '''Handle button clicks'''
+        await interaction.response.defer(ephemeral=True)
+
+        if not self.message_id:
+            return await interaction.followup.send("Message constructing. Try again in a few minutes.", ephemeral=True)
+
+        message = await interaction.channel.fetch_message(self.message_id)
+        embed = message.embeds[0]
+
+        if interaction.user.display_name not in embed.title:
+            return await interaction.followup.send("Wait your turn.", ephemeral=True)
+
+        await message.delete()
+
+        embed = await load_embed_from_file(
+            "overdosed",
+            {
+                "guild_name": interaction.guild.name,
+                "guild_image": interaction.guild.icon.url,
+                "name": interaction.user.display_name,
+            }
+        )
+
+        return await interaction.followup.send("Oh no :(.", ephemeral=True)
 
 async def send_done_view(guild: discord.Guild, channel: discord.TextChannel, name: str):
     '''Send the done view to a channel'''
