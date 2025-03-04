@@ -44,7 +44,7 @@ async def rc_command(ctx: discord.ApplicationContext):
 
 @seller_commands.command(name="go", description="Start going message.")
 @permissions(required_roles=["Jump Seller"])
-async def rc_command(ctx: discord.ApplicationContext):
+async def go_command(ctx: discord.ApplicationContext):
     '''Start going message.'''
     await ctx.defer(ephemeral=True)
 
