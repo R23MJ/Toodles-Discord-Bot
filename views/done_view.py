@@ -65,7 +65,7 @@ class GoingButtonView(discord.ui.View):
 
         tokens = embed.description.split(" ")
 
-        if interaction.user.display_name in embed.description:
+        if interaction.user.display_name in tokens:
             return await interaction.followup.send("But you just went?!", ephemeral=True)
 
         await message.delete()
