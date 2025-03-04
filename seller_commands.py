@@ -48,7 +48,7 @@ async def rc_command(ctx: discord.ApplicationContext):
     '''Start going message.'''
     await ctx.defer(ephemeral=True)
 
-    await done_view.send_done_view(ctx.guild, ctx.channel)
+    await done_view.send_done_view(ctx.guild, ctx.channel, ctx.author.display_name)
 
     await ctx.followup.send("Jump started.", ephemeral=True)
 
