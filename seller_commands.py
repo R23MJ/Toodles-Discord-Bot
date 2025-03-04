@@ -36,7 +36,7 @@ async def send_controls_command(ctx: discord.ApplicationContext):
 @permissions(required_roles=["Jump Seller"])
 async def rc_command(ctx: discord.ApplicationContext):
     '''Start roll call.'''
-    await ctx.defer()
+    await ctx.defer(ephemeral=True)
 
     await rc_view.send_rc_view(ctx.guild, ctx.channel)
 
