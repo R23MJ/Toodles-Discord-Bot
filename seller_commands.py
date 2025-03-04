@@ -6,7 +6,7 @@ from discord.commands import SlashCommandGroup
 from decorators import permissions
 import utils
 import db
-from views import controls_view
+from views import controls_view, rc_view
 
 seller_commands = SlashCommandGroup(name="jump", description="Base command for all jump commands.")
 
@@ -31,3 +31,13 @@ async def send_controls_command(ctx: discord.ApplicationContext):
     )
 
     await ctx.followup.send(embed=controls_embed, view=controls_view.JumpControlsButtonView())
+
+@seller_commands.command(name="rc", description="Start roll call.")
+@permissions(required_roles=["Jump Seller"])
+async def rc_command(ctx: discord.ApplicationContext):
+    '''Start roll call.'''
+    await ctx.defer()
+
+    await rc_view.send_rc_view(ctx.guild, ctx.channel)
+
+    await ctx.followup.send("Roll call started.", ephemeral=True)
