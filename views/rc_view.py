@@ -30,7 +30,7 @@ class RollCallButtonView(discord.ui.View):
         if f"[{interaction.user.display_name}]({torn_url})" in names:
             return await interaction.followup.send("You've already readied up.", ephemeral=True)
 
-        if names[0] == "No one is ready yet.":
+        if names[0] == "I CAN'T HEAR YOU!":
             names[0] = f"[{interaction.user.display_name}]({torn_url})"
         else:
             names.append(f"[{interaction.user.display_name}]({torn_url})")
