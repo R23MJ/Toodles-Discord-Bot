@@ -22,8 +22,10 @@ class DoneButtonView(discord.ui.View):
         message = await interaction.channel.fetch_message(self.message_id)
         embed = message.embeds[0]
 
-        if interaction.user.display_name in embed.description:
-            return await interaction.followup.send("But you just went?!", ephemeral=True)
+        tokens = embed.description.split(" ")
+
+        if interaction.user.display_name not in tokens:
+            return await interaction.followup.send("Wait your turn.", ephemeral=True)
 
         await message.delete()
 
@@ -63,8 +65,8 @@ class GoingButtonView(discord.ui.View):
 
         tokens = embed.description.split(" ")
 
-        if interaction.user.display_name not in tokens:
-            return await interaction.followup.send("Wait your turn.", ephemeral=True)
+        if interaction.user.display_name in embed.description:
+            return await interaction.followup.send("But you just went?!", ephemeral=True)
 
         await message.delete()
 
