@@ -31,9 +31,9 @@ class RollCallButtonView(discord.ui.View):
         torn_url = f"https://www.torn.com/profiles.php?XID={torn_id}"
 
         if names[0] == "No one is ready yet.":
-            names[0] = f"[{interaction.user.name}]({torn_url})"
+            names[0] = f"[{interaction.user.display_name}]({torn_url})"
         else:
-            names.append(f"[{interaction.user.name}]({torn_url})")
+            names.append(f"[{interaction.user.display_name}]({torn_url})")
 
         await message.delete()
 
