@@ -34,8 +34,8 @@ class RollCallButtonView(discord.ui.View):
         rc_embed = await load_embed_from_file(
             "roll_call",
             {
-                "guild_name": embed.title,
-                "guild_image": embed.thumbnail.url,
+                "guild_name": interaction.guild.name,
+                "guild_image": interaction.guild.icon.url,
                 "names": "\n".join(names),
             }
         )
