@@ -82,7 +82,7 @@ class GoingButtonView(discord.ui.View):
 
         return await interaction.followup.send("You are now done.", ephemeral=True)
     
-    @discord.ui.button(label="Overdosed", style=discord.ButtonStyle.primary, custom_id="overdosed")
+    @discord.ui.button(label="Overdosed", style=discord.ButtonStyle.danger, custom_id="overdosed")
     async def overdosed_callback(self, button, interaction: discord.Interaction):
         '''Handle button clicks'''
         await interaction.response.defer(ephemeral=True)
