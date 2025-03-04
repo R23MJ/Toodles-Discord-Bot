@@ -23,12 +23,12 @@ class RollCallButtonView(discord.ui.View):
         embed = message.embeds[0]
 
         names = embed.description.split("\n")
-
-        if interaction.user.display_name in names:
-            return await interaction.followup.send("You've already readied up.", ephemeral=True)
-
+        
         torn_id = get_torn_id(interaction.user.display_name)
         torn_url = f"https://www.torn.com/profiles.php?XID={torn_id}"
+
+        if f"[{interaction.user.display_name}]({torn_url})" in names:
+            return await interaction.followup.send("You've already readied up.", ephemeral=True)
 
         if names[0] == "No one is ready yet.":
             names[0] = f"[{interaction.user.display_name}]({torn_url})"
