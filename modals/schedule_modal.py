@@ -64,13 +64,14 @@ class ScheduleJumpModal(discord.ui.Modal):
         await guild.create_role(name=f"Jump #{jump_id}")
         channel = discord.utils.get(guild.channels, name="jump")
 
+        default_avatar_url = interaction.user.default_avatar.url
         controls_embed = await utils.load_embed_from_file(
             "jump_controls",
             {
                 "jump_id": str(jump_id),
                 "jump_time": str(self.jump_time),
                 "host_name": interaction.user.display_name,
-                "host_avatar": interaction.user.avatar.url
+                "host_avatar": interaction.user.avatar.url if interaction.user.avatar else default_avatar_url
             }
         )
 
